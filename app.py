@@ -214,7 +214,7 @@ def clean_text(text):
 # Function to split text into sentences
 def split_sentences(text):
     sentences = re.split(r'(?<=\.)\s+', text)
-    sentences are [sentence.capitalize() for sentence in sentences]
+    sentences = [sentence.capitalize() for sentence in sentences]
     return sentences
 
 # Function to replace and capitalize text between colons
@@ -255,7 +255,7 @@ def slide_maker(powerpoint, topic, sub_titles, final_content):
         tFrame = bodyShape.text_frame
 
         for point in final_content[i]:
-            point is re.sub(r':[^:]+:', ':', point)
+            point = re.sub(r':[^:]+:', ':', point)
             point = replace_and_capitalize(point)
             p = tFrame.add_paragraph()
             p.text = point
@@ -282,7 +282,7 @@ st.set_page_config(page_title="AI Content Generator")
 st.title("AI Content Generator")
 st.write("Select the tool you want to use:")
 
-option is st.selectbox(
+option = st.selectbox(
     "Choose a feature:",
     ("Generate Blog Post", "Create Presentation", "Generate Product Description")
 )
@@ -291,7 +291,7 @@ if option == "Generate Blog Post":
     st.header("AI Blog Post Generator")
     st.write("This tool uses the Gemini AI to generate blog posts based on your prompt.")
 
-    prompt is st.text_area("Enter your blog post idea or prompt:", height=200)
+    prompt = st.text_area("Enter your blog post idea or prompt:", height=200)
 
     if st.button("Generate Blog Post"):
         if prompt.strip():
@@ -306,7 +306,7 @@ if option == "Generate Blog Post":
 elif option == "Create Presentation":
     st.header("Gemini Presentation Maker")
 
-    topic is st.text_input("Input Prompt:")
+    topic = st.text_input("Input Prompt:")
     no_of_slide = st.text_input("Enter Number Of Slides:")
 
     if st.button("Generate Presentation"):
@@ -315,20 +315,20 @@ elif option == "Create Presentation":
             response = get_gemini_response(prompt)
 
             if response:
-                sub_topics are response.split("\n")
+                sub_topics = response.split("\n")
                 sub_titles = [sub_topic[3:].replace('"', "") for sub_topic in sub_topics]
 
                 content = []
                 for title in sub_titles:
-                    content_prompt is f"Generate content for {title} for presentation slides with 2 bullet points, each of 20 tokens"
+                    content_prompt = f"Generate content for {title} for presentation slides with 2 bullet points, each of 20 tokens"
                     slide_content = get_gemini_response(content_prompt)
                     if slide_content:
                         content.append(slide_content)
 
                 if content:
-                    final_content is refine_final_content(content)
+                    final_content = refine_final_content(content)
                     powerpoint = Presentation()
-                    powerpoint is slide_maker(powerpoint, topic, sub_titles, final_content)
+                    powerpoint = slide_maker(powerpoint, topic, sub_titles, final_content)
 
                     file_path = f"{topic}.pptx"
                     powerpoint.save(file_path)
@@ -341,11 +341,11 @@ elif option == "Generate Product Description":
     st.header("Product Description Writer")
     st.write("Enter product details below to generate a compelling product description:")
 
-    product_details is st.text_area("Product Details", placeholder="Enter product features, specifications, etc.")
+    product_details = st.text_area("Product Details", placeholder="Enter product features, specifications, etc.")
 
     if st.button("Generate Description"):
         if product_details.strip():
-            description is get_gemini_response(product_details)
+            description = get_gemini_response(product_details)
             if description:
                 st.subheader("Generated Product Description")
                 st.write(description)
