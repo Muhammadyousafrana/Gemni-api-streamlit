@@ -5,13 +5,13 @@ import re
 from pptx.util import Pt
 from pptx.dml.color import RGBColor
 from pptx import Presentation
-from dotenv import load_dotenv
-import json
+#from dotenv import load_dotenv
+#import json
 
 # Load environment variables
-load_dotenv()
-api_key = os.getenv('my_api_key')
-
+#load_dotenv()
+#api_key = os.getenv('my_api_key')
+api_key=st.secrets["api_key"]
 # Configure the API key
 genai.configure(api_key=api_key)
 
