@@ -193,7 +193,7 @@ genai.configure(api_key=api_key)
 # Function to get response from Gemini API with error handling
 def get_gemini_response(prompt):
     try:
-        model = genai.GenerativeModel("gemini-1.5-pro")
+        model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content([prompt])
         return response.text
     except InternalServerError:
