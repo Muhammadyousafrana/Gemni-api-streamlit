@@ -124,7 +124,7 @@ if option == "Generate Blog Post":
     if st.button("Generate Blog Post"):
         if prompt.strip():
             st.write("Generating blog post, please wait...")
-            blog_post = get_gemini_response(prompt, 'gemini-1.5-flash')
+            blog_post = get_gemini_response(prompt)
             st.subheader("Generated Blog Post")
             st.write(blog_post)
         else:
@@ -139,7 +139,7 @@ elif option == "Create Presentation":
     if st.button("Generate Presentation"):
         if topic.strip() and no_of_slide.isdigit():
             prompt = f"Generate {no_of_slide} sub-titles on the topic of {topic}"
-            response = get_gemini_response(prompt, 'gemini-pro')
+            response = get_gemini_response(prompt)
 
             sub_topics = response.split("\n")
             sub_titles = [sub_topic[3:].replace('"', "") for sub_topic in sub_topics]
@@ -147,7 +147,7 @@ elif option == "Create Presentation":
             content = []
             for title in sub_titles:
                 content_prompt = f"Generate content for {title} for presentation slides with 2 bullet points, each of 20 tokens"
-                slide_content = get_gemini_response(content_prompt, 'gemini-pro')
+                slide_content = get_gemini_response(content_prompt)
                 content.append(slide_content)
 
             final_content = refine_final_content(content)
@@ -170,7 +170,7 @@ elif option == "Generate Product Description":
     if st.button("Generate Description"):
         if product_details.strip():
             model_name = 'gemini-1.5-flash'  # You can modify this based on the JSON file or make it dynamic
-            description = get_gemini_response(product_details, model_name)
+            description = get_gemini_response(product_details)
             st.subheader("Generated Product Description")
             st.write(description)
         else:
